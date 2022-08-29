@@ -32,10 +32,10 @@ func main() {
 				if !filepath.IsAbs(path) {
 					path = filepath.Join(terminalPath(), path)
 				}
-				fmt.Println(path)
 				if hnd, err := tftp.FilesystemHandler(path); err == nil {
+					fmt.Println("ROOT", path)
 					ser := &tftp.Server{Handler: hnd}
-					return ser.ListenAndServe("")
+					return ser.ListenAndServe(ctx.String("listen"))
 				} else {
 					return err
 				}
